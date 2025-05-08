@@ -3,3 +3,4 @@ djangorestframework
 groq
 psycopg2-binary
 pgvector
+
