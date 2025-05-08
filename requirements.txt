@@ -1,4 +1,4 @@
 django
 djangorestframework
-mysqlclient
 groq
+psycopg2-binary
