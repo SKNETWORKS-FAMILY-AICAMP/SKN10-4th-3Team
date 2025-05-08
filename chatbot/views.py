@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from .models import Message, Session
+from django.contrib.auth.models import User
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from django.utils import timezone
@@ -29,10 +30,13 @@ def list_sessions(request):
 
 @api_view(['POST'])
 def create_session(request):
+    user_id = request.data.get('user_id')
     title = request.data.get('title', f"New session {timezone.now().strftime('%Y-%m-%d %H:%M')}")
-    session = Session.objects.create(title=title)
+    user = User.objects.get(id=user_id)
+    session = Session.objects.create(user_id=user, title=title)
     return Response({
         'id': session.id,
+        'user_id': user.id,
         'title': session.title,
         'created_at': session.created_at,
     })
