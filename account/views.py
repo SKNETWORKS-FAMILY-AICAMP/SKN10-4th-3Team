@@ -1,3 +1,16 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 
-# Create your views here.
+def login_view(request):
+    if request.method == 'POST':
+        # 로그인 처리 로직
+        return redirect('chatbot:chat')  # 챗봇 페이지로 리다이렉트
+    return render(request, 'account/login.html')
+
+def register_view(request):
+    if request.method == 'POST':
+        # 회원가입 처리 로직
+        return redirect('account:login')  # 로그인 페이지로 리다이렉트
+    return render(request, 'account/register.html')
+
+def password_reset_view(request):
+    return render(request, 'account/password_reset.html')
