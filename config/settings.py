@@ -82,14 +82,51 @@ WSGI_APPLICATION = 'config.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
+import sshtunnel
+from paramiko import RSAKey
+from io import StringIO
+
+ssh_host = 'ec2-43-201-75-142.ap-northeast-2.compute.amazonaws.com'
+ssh_username = 'ubuntu'
+ssh_pkey = os.path.join(BASE_DIR, 'config', 'skn10-4th-3team-pem.pem')
+
+postgre_host = "skn10-4th-3team-postgresql.c1qw2g4i28lw.ap-northeast-2.rds.amazonaws.com"
+postgre_user = "postgres"
+postgre_password = "root1234"
+postgre_db = "postgres"
+postgre_port = 5432
+
+mypkey = RSAKey.from_private_key(StringIO(open(ssh_pkey).read()))
+
+sshtunnel.SSH_TIMEOUT = 5.0
+sshtunnel.TUNNEL_TIMEOUT = 5.0
+
+tunnel = sshtunnel.SSHTunnelForwarder(
+    (ssh_host, 22),
+    ssh_username=ssh_username,
+    ssh_pkey=mypkey,
+    remote_bind_address=(postgre_host, postgre_port),
+    local_bind_address=('127.0.0.1', 5433)
+)
+
+try:
+    tunnel.start()
+    print("SSH Tunnel Started Successfully.")
+except Exception as e:
+    print(f"Error starting SSH tunnel: {e}")
+    exit(1)
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': "examplesdb",
-        'USER': "urstory",
-        'PASSWORD': "root1234",
+        'NAME': postgre_db,
+        'USER': postgre_user,
+        'PASSWORD': postgre_password,
         'HOST': '127.0.0.1',
-        'PORT': "5430"
+        'PORT': str(tunnel.local_bind_port),
+        'OPTIONS': {
+            'options': '-c search_path=public'
+        }
     }
 }
 
