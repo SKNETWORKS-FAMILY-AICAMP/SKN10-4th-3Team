@@ -8,10 +8,14 @@ from .views import (
     delete_session,
     add_philosophy_data,
     get_llm_response,
+    chatbot_page,
+    chat_api,
 )
 
 urlpatterns = [
     # path('show_all_messages/', show_all_messages, name='chatbot-show_all_messages'),
+    path('',chatbot_page),
+    path('chat/',chat_api),
     path('sessions/', list_sessions),  # GET
     path('sessions/create/', create_session),  # POST
     path('sessions/<int:session_id>/messages/', get_messages_by_session),  # GET
