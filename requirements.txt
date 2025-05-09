@@ -4,3 +4,6 @@ djangorestframework
 groq
 psycopg2-binary
 pgvector
+google-generativeai
+openai
+django-environ

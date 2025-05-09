@@ -18,6 +18,6 @@ class Message(models.Model):
 class PhilosophyData(models.Model):
     author = models.CharField(max_length=255)
     quote = models.TextField()
-    tags = models.CharField(max_length=255, null=True, blank=True)
-    emb = VectorField(dimensions=1536, default=[0.0]*1536)
     quote_keywords = models.CharField(max_length=255, null=True, blank=True)
+    quote_emb = VectorField(dimensions=1536, default=[0.0]*1536)
+    keywords_emb = VectorField(dimensions=1536, default=[0.0]*1536)
