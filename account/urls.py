@@ -1,11 +1,12 @@
 from django.contrib import admin
 from django.urls import path
-from . import views
-
-app_name = 'account'
+from .views import (
+    login_view,
+    register_view
+)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('login/', views.login_view, name='login'),
-    path('register/', views.register_view, name='register'),
-]
+    path('login/', login_view),
+    path('register/', register_view),
+] 

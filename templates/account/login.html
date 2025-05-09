@@ -17,7 +17,7 @@
                 <p class="text-slate-400">Please sign in to your account</p>
             </div>
 
-            <form id="loginForm" method="POST" action="{% url 'account:login' %}" class="space-y-6">
+            <form id="loginForm" method="POST" action="/account/login/" class="space-y-6">
                 {% csrf_token %}
                 
                 <div class="space-y-4">
@@ -55,7 +55,7 @@
 
             <p class="mt-8 text-center text-sm text-slate-400">
                 Don't have an account? 
-                <a href="{% url 'account:register' %}" class="font-medium text-indigo-400 hover:text-indigo-300 transition-colors">
+                <a href="/account/register/" class="font-medium text-indigo-400 hover:text-indigo-300 transition-colors">
                     Sign up
                 </a>
             </p>

@@ -17,7 +17,7 @@
                 <p class="text-slate-400">Join our community today</p>
             </div>
 
-            <form id="signupForm" method="POST" action="{% url 'account:register' %}" class="space-y-4">
+            <form id="signupForm" method="POST" action="/account/register/" class="space-y-4">
                 {% csrf_token %}
                 
                 <div class="space-y-4">
@@ -63,8 +63,8 @@
                             </div>
                             <div class="flex justify-between items-center mt-1">
                                 <span id="passwordStrengthText" class="text-sm"></span>
-                                <ul id="passwordFeedbackList" class="text-sm text-slate-400"></ul>
                             </div>
+                            <ul id="passwordFeedbackList" class="mt-2 space-y-1"></ul>
                         </div>
                     </div>
 
@@ -81,21 +81,6 @@
                         </div>
                         <div id="confirmPasswordError" class="error-message hidden"></div>
                     </div>
-
-                    <div>
-                        <label class="block text-sm font-medium text-slate-300 mb-2">Gender</label>
-                        <div class="flex space-x-4">
-                            <div class="custom-radio">
-                                <input type="radio" id="male" name="gender" value="male">
-                                <label for="male">Male</label>
-                            </div>
-                            <div class="custom-radio">
-                                <input type="radio" id="female" name="gender" value="female">
-                                <label for="female">Female</label>
-                            </div>
-                        </div>
-                        <div id="genderError" class="error-message hidden"></div>
-                    </div>
                 </div>
 
                 <button type="submit" 
@@ -106,7 +91,7 @@
 
             <p class="mt-8 text-center text-sm text-slate-400">
                 Already have an account? 
-                <a href="{% url 'account:login' %}" class="font-medium text-indigo-400 hover:text-indigo-300 transition-colors">
+                <a href="/account/login/" class="font-medium text-indigo-400 hover:text-indigo-300 transition-colors">
                     Sign in
                 </a>
             </p>

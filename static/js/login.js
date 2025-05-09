@@ -73,7 +73,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Setup form validation
     const loginForm = document.getElementById('loginForm');
     if (loginForm) {
-        loginForm.addEventListener('submit', (e) => {
+        loginForm.addEventListener('submit', async (e) => {
             e.preventDefault();
             const isValid = validateForm('loginForm', {
                 loginCredential: {
@@ -89,8 +89,31 @@ document.addEventListener('DOMContentLoaded', () => {
             });
 
             if (isValid) {
-                // Submit form
-                loginForm.submit();
+                try {
+                    const formData = new FormData(loginForm);
+                    const response = await fetch(loginForm.action, {
+                        method: 'POST',
+                        body: formData,
+                        headers: {
+                            'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
+                        }
+                    });
+
+                    const data = await response.json();
+                    
+                    if (response.ok) {
+                        // 성공 메시지 표시
+                        alert(data.message);
+                        // 리다이렉트 URL로 이동
+                        window.location.href = data.redirect_url;
+                    } else {
+                        // 에러 메시지 표시
+                        alert(data.message || '로그인에 실패했습니다.');
+                    }
+                } catch (error) {
+                    console.error('Error:', error);
+                    alert('로그인 처리 중 오류가 발생했습니다.');
+                }
             }
         });
     }

@@ -181,7 +181,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Setup form validation
     const signupForm = document.getElementById('signupForm');
     if (signupForm) {
-        signupForm.addEventListener('submit', (e) => {
+        signupForm.addEventListener('submit', async (e) => {
             e.preventDefault();
             const isValid = validateForm('signupForm', {
                 username: {
@@ -209,15 +209,35 @@ document.addEventListener('DOMContentLoaded', () => {
                         const password = document.getElementById('password').value;
                         return value !== password ? 'Passwords do not match' : null;
                     }
-                },
-                gender: {
-                    required: true
                 }
             });
 
             if (isValid) {
-                // Submit form
-                signupForm.submit();
+                try {
+                    const formData = new FormData(signupForm);
+                    const response = await fetch(signupForm.action, {
+                        method: 'POST',
+                        body: formData,
+                        headers: {
+                            'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
+                        }
+                    });
+
+                    const data = await response.json();
+                    
+                    if (response.ok) {
+                        // 성공 메시지 표시
+                        alert(data.message);
+                        // 리다이렉트 URL로 이동
+                        window.location.href = data.redirect_url;
+                    } else {
+                        // 에러 메시지 표시
+                        alert(data.message || '회원가입에 실패했습니다.');
+                    }
+                } catch (error) {
+                    console.error('Error:', error);
+                    alert('회원가입 처리 중 오류가 발생했습니다.');
+                }
             }
         });
     }
