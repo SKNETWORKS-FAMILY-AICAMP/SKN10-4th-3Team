@@ -8,7 +8,6 @@ from .views import (
     delete_session,
 )
 
-
 urlpatterns = [
     # path('show_all_messages/', show_all_messages, name='chatbot-show_all_messages'),
     path('sessions/', list_sessions),  # GET
