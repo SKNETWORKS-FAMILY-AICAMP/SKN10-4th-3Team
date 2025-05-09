@@ -12,8 +12,26 @@ from django.utils import timezone
 # def show_all_messages(request):
 #     messages = Message.objects.all()    # 모든 메시지를 가져옵니다.
 #     return render(request, 'chatbot/chatbot.html', context={'messages': messages})
+def chatbot_page(request):
+    return render(request, 'chatbot/chatbot2.html')
 
 
+@api_view(['POST'])
+def chat_api(request):
+    message = request.data.get('message')
+    session_id = request.data.get('session_id')
+
+    if session_id:
+        session = Session.objects.get(id=session_id)
+        Message.objects.create(text=message, sender='user', session_id=session)
+
+    # 여기서 실제 OpenAI 처리
+    response = (message)
+
+    if session_id:
+        Message.objects.create(text=response, sender='bot', session_id=session)
+
+    return Response({"response": response})
 @api_view(['GET'])
 def list_sessions(request):
     sessions = Session.objects.all().order_by('-created_at')
@@ -29,8 +47,12 @@ def list_sessions(request):
 
 @api_view(['POST'])
 def create_session(request):
-    title = request.data.get('title', f"New session {timezone.now().strftime('%Y-%m-%d %H:%M')}")
-    session = Session.objects.create(title=title)
+
+    title = request.data.get('title')
+    if not title:
+        title = f"New session {timezone.now().strftime('%Y-%m-%d %H:%M')}"
+
+    session = Session.objects.create(title=title,user_id=request.user)
     return Response({
         'id': session.id,
         'title': session.title,
@@ -40,7 +62,7 @@ def create_session(request):
 
 @api_view(['GET'])
 def get_messages_by_session(request, session_id):
-    messages = Message.objects.filter(id=session_id).order_by('created_at')
+    messages = Message.objects.filter(session_id=session_id).order_by('created_at')
     data = [
         {
             'id': m.id,

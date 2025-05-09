@@ -6,11 +6,15 @@ from .views import (
     create_session,
     get_messages_by_session,
     delete_session,
+    chatbot_page,
+    chat_api,
 )
 
 
 urlpatterns = [
     # path('show_all_messages/', show_all_messages, name='chatbot-show_all_messages'),
+    path('',chatbot_page),
+    path('chat/',chat_api),
     path('sessions/', list_sessions),  # GET
     path('sessions/create/', create_session),  # POST
     path('sessions/<int:session_id>/messages/', get_messages_by_session),  # GET
