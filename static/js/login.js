@@ -65,6 +65,14 @@ function validateForm(formId, validationRules) {
     return isValid;
 }
 
+function handleLoginResponse(response) {
+    if (response.status === 200) {
+        window.location.href = 'account/chatbot/';
+    } else {
+        alert('로그인 실패');
+    }
+}
+
 // Initialize form validation
 document.addEventListener('DOMContentLoaded', () => {
     // Setup password toggle
@@ -95,3 +103,21 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 }); 
+
+document.addEventListener('DOMContentLoaded', function() {
+    const form = document.querySelector('form');
+    form.addEventListener('submit', function(event) {
+        event.preventDefault(); // 폼의 기본 제출 동작을 막습니다.
+
+        // 폼 데이터를 가져옵니다.
+        const formData = new FormData(form);
+
+        // 서버로 폼 데이터를 전송합니다.
+        fetch(form.action, {
+            method: 'POST',
+            body: formData,
+        })
+        .then(response => handleLoginResponse(response))
+        .catch(error => console.error('Error:', error));
+    });
+});
