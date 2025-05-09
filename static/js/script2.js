@@ -10,7 +10,7 @@ const toggleSidebarBtn = document.getElementById('toggleSidebarBtn');
 const sidebarToggleIcon = document.getElementById('sidebarToggleIcon');
 const mobileMenuBtn = document.getElementById('mobileMenuBtn');
 const chatHistoryContainer = document.getElementById('chatHistoryContainer');
-const isUserLoggedIn = window.isUserLoggedIn === true;
+const isUserLoggedIn = true;//window.isUserLoggedIn === true;
 let isSidebarCollapsed = false;
 let currentChatHistory = []; // To store messages of current session
 
@@ -72,6 +72,10 @@ async function deleteSession(sessionId) {
         method: "POST",
         headers: { "X-CSRFToken": getCSRFToken() }
     });
+
+    if (activeSessionId === sessionId) {
+        location.reload();
+    }
 }
 
 async function loadSessionMessages(sessionId) {
@@ -224,7 +228,6 @@ function removeTypingIndicator() {
 async function handleSendMessage() {
     const messageText = chatInput.value.trim();
     if (messageText === '') return;
-
     if (isUserLoggedIn && !activeSessionId) {
         const title = messageText.split('\n')[0].slice(0, 50);  // 제목 추출
         const session = await createSession(title);
