@@ -67,7 +67,7 @@ function validateForm(formId, validationRules) {
 
 function handleLoginResponse(response) {
     if (response.status === 200) {
-        window.location.href = 'account/chatbot/';
+        window.location.href = '../../chatbot/';
     } else {
         alert('로그인 실패');
     }
@@ -106,18 +106,34 @@ document.addEventListener('DOMContentLoaded', () => {
 
 document.addEventListener('DOMContentLoaded', function() {
     const form = document.querySelector('form');
+    const submitButton = form.querySelector('button[type="submit"]');
+
     form.addEventListener('submit', function(event) {
         event.preventDefault(); // 폼의 기본 제출 동작을 막습니다.
 
         // 폼 데이터를 가져옵니다.
         const formData = new FormData(form);
 
+        // 버튼을 비활성화하여 중복 제출을 방지합니다.
+        submitButton.disabled = true;
+        submitButton.textContent = 'Logging in...';
+
         // 서버로 폼 데이터를 전송합니다.
         fetch(form.action, {
             method: 'POST',
             body: formData,
         })
-        .then(response => handleLoginResponse(response))
-        .catch(error => console.error('Error:', error));
+        .then(response => {
+            handleLoginResponse(response);
+            // 서버 응답에 따라 버튼을 다시 활성화합니다.
+            submitButton.disabled = false;
+            submitButton.textContent = 'Log in';
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            // 에러 발생 시 버튼을 다시 활성화합니다.
+            submitButton.disabled = false;
+            submitButton.textContent = 'Log in';
+        });
     });
 });

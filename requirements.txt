@@ -1,6 +1,6 @@
 django
+PyJWT
 djangorestframework
 groq
 psycopg2-binary
 pgvector
-

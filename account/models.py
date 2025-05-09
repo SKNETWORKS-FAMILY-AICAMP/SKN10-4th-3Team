@@ -33,7 +33,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
   is_staff = models.BooleanField(default=False)
   
   class Meta:
-    db_table = 'user'
+    db_table = 'account'
 
   USERNAME_FIELD = 'username'
   REQUIRED_FIELDS = ['email']

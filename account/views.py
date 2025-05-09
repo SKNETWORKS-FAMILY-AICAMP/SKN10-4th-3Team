@@ -67,7 +67,8 @@ class LoginView(APIView):
         return render(request, 'account/login.html')
   
     def post(self, request):
-        username = request.data['username']
+        print('request: ', request.data)
+        username = request.data['credential']
         password = request.data['password']
         try:
             user = CustomUser.objects.get(username=username)
