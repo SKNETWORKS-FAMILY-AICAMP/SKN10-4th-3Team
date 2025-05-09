@@ -1,6 +1,7 @@
 from google.generativeai import configure, GenerativeModel
 from django.conf import settings
 from .similarity import get_high_similarity_quotes, get_high_similarity_keywords
+from .extract_keyword import get_keyword
 
 # Gemini API Key를 settings에서 가져옴
 GEMINI_API_KEY = settings.GEMINI_API_KEY
@@ -17,31 +18,23 @@ def generate_philosophical_advice(text: str, num_quotes: int = 3):
         str: 철학적 조언이 담긴 응답
     """
     # 1. 키워드 기반으로 10개의 유사한 철학적 명언 검색
-    initial_quotes = get_high_similarity_keywords(text, 10)
-    
+    keywords = get_keyword(text)
+    text = kor2eng_with_gemini(text)
+    # print("text(eng):", text)
+    # print("keywords:", keywords)
+    initial_quotes = get_high_similarity_keywords(keywords, 10)
+    # print("initial_quotes:", initial_quotes)
     # 2. 검색된 10개의 명언에 대해 직접 텍스트 유사도로 재순위화
     # 검색된 명언들의 ID만 추출
     quote_ids = [quote['id'] for quote in initial_quotes]
-    
+    # print("quote_ids:", quote_ids)
     # 3. 텍스트 유사도 기반으로 재순위화하여 상위 num_quotes개 선택
-    reranked_quotes = []
-    for quote_id in quote_ids:
-        # 원본 명언 찾기
-        original_quote = next((q for q in initial_quotes if q['id'] == quote_id), None)
-        if original_quote:
-            # 직접 텍스트 유사도 계산
-            similarity = get_high_similarity_quotes(original_quote['quote'], 1)[0]['similarity']
-            reranked_quotes.append({
-                'id': original_quote['id'],
-                'quote': original_quote['quote'],
-                'author': original_quote['author'],
-                'similarity': similarity
-            })
-    
+    # 수정된 함수를 사용하여 유사도 계산
+    final_quotes = get_high_similarity_quotes(text, quote_ids)
     # 유사도 기준으로 내림차순 정렬하고 상위 num_quotes개 선택
-    reranked_quotes.sort(key=lambda x: x['similarity'], reverse=True)
-    final_quotes = reranked_quotes[:num_quotes]
-    
+    final_quotes.sort(key=lambda x: x['similarity'], reverse=True)
+    # print("final_quotes:", final_quotes)
+
     # 검색된 명언들을 문자열로 변환
     quotes_context = ""
     for i, quote in enumerate(final_quotes, 1):
@@ -72,6 +65,35 @@ def generate_philosophical_advice(text: str, num_quotes: int = 3):
     response = model.generate_content(prompt)
     
     return response.text
+
+def kor2eng_with_gemini(text: str):
+    """
+    Gemini 모델을 사용하여 한국어 텍스트를 영어로 번역합니다.
+    
+    Args:
+        text (str): 번역할 한국어 텍스트
+    
+    Returns:
+        str: 영어로 번역된 텍스트
+    """
+    # API 키 설정 (이미 전역에 설정되어 있다면 생략 가능)
+    configure(api_key=GEMINI_API_KEY)
+    
+    # Gemini 모델 초기화
+    model = GenerativeModel('models/gemini-2.0-flash')
+    
+    # 번역 프롬프트
+    prompt = f"""Translate the following Korean text to English. 
+Provide only the translated text without any additional explanations or notes.
+
+Korean text: {text}
+
+English translation:"""
+    
+    # 모델에 프롬프트 전송하고 응답 받기
+    response = model.generate_content(prompt)
+    
+    return response.text.strip()
 
 def chat_with_philosophy(user_query, num_quotes: int = 3):
     """

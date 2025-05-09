@@ -80,11 +80,3 @@ def add_philosophy_data(request):
         keywords_emb=keywords_emb,
     )
     return Response({'success': True, 'quote': new_data.quote})
-
-@api_view(['GET'])
-def get_llm_response(request):
-    user_query = request.query_params.get('user_query')
-    print("user_query:", user_query)
-    response = chat_with_philosophy(user_query)
-    print("response:", response)
-    return Response({'response': response})
