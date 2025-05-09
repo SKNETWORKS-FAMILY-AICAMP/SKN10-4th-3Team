@@ -1,8 +1,11 @@
 from django.shortcuts import render
-from .models import Message, Session
+from .models import Message, Session, PhilosophyData
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from django.utils import timezone
+from .utils.extract_keyword import get_keyword
+from .utils.vectorizer import OpenAI_vectorizer
+from .utils.llm import chat_with_philosophy
 
 # Create your views here.
 
@@ -60,3 +63,28 @@ def delete_session(request, session_id):
         return Response({'success': True})
     except Session.DoesNotExist:
         return Response({'error': 'Session not found'}, status=404)
+
+
+@api_view(['POST'])
+def add_philosophy_data(request):
+    author = request.data.get('author')
+    quote = request.data.get('quote')
+    quote_keywords = get_keyword(quote)
+    quote_emb = OpenAI_vectorizer(quote)
+    keywords_emb = OpenAI_vectorizer(quote_keywords)
+    new_data = PhilosophyData.objects.create(
+        author=author,
+        quote=quote,
+        quote_keywords=quote_keywords,
+        quote_emb=quote_emb,
+        keywords_emb=keywords_emb,
+    )
+    return Response({'success': True, 'quote': new_data.quote})
+
+@api_view(['GET'])
+def get_llm_response(request):
+    user_query = request.query_params.get('user_query')
+    print("user_query:", user_query)
+    response = chat_with_philosophy(user_query)
+    print("response:", response)
+    return Response({'response': response})
