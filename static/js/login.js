@@ -73,12 +73,16 @@ function handleLoginResponse(response) {
     }
 }
 
-// Initialize form validation
 document.addEventListener('DOMContentLoaded', () => {
-    // Setup password toggle
+    // ✅ 로그인 상태이면 로그인 페이지 접근 차단
+    if (isLoggedIn()) {
+        window.location.href = '../../chatbot/';
+        return;  // 리디렉션 후 실행 중단
+    }
+
+    // 나머지 초기화 (토글, 검증 등)
     setupPasswordToggle('loginPasswordToggle', 'loginPassword');
 
-    // Setup form validation
     const loginForm = document.getElementById('loginForm');
     if (loginForm) {
         loginForm.addEventListener('submit', (e) => {
@@ -97,43 +101,12 @@ document.addEventListener('DOMContentLoaded', () => {
             });
 
             if (isValid) {
-                // Submit form
                 loginForm.submit();
             }
         });
     }
-}); 
-
-document.addEventListener('DOMContentLoaded', function() {
-    const form = document.querySelector('form');
-    const submitButton = form.querySelector('button[type="submit"]');
-
-    form.addEventListener('submit', function(event) {
-        event.preventDefault(); // 폼의 기본 제출 동작을 막습니다.
-
-        // 폼 데이터를 가져옵니다.
-        const formData = new FormData(form);
-
-        // 버튼을 비활성화하여 중복 제출을 방지합니다.
-        submitButton.disabled = true;
-        submitButton.textContent = 'Logging in...';
-
-        // 서버로 폼 데이터를 전송합니다.
-        fetch(form.action, {
-            method: 'POST',
-            body: formData,
-        })
-        .then(response => {
-            handleLoginResponse(response);
-            // 서버 응답에 따라 버튼을 다시 활성화합니다.
-            submitButton.disabled = false;
-            submitButton.textContent = 'Log in';
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            // 에러 발생 시 버튼을 다시 활성화합니다.
-            submitButton.disabled = false;
-            submitButton.textContent = 'Log in';
-        });
-    });
 });
+
+function isLoggedIn() {
+    return document.cookie.split('; ').some(row => row.startsWith('access_token='));
+}

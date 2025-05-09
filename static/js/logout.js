@@ -14,6 +14,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // 서버로 로그아웃 요청을 전송합니다.
     fetch('/logout/', {
       method: 'POST',
+      credentials: 'include',
     })
     .then(response => handleLogoutResponse(response))
     .catch(error => console.error('Error:', error));

@@ -28,17 +28,11 @@ from .models import CustomUser
 # 회원가입
 class RegisterView(APIView):
     def get(self, request):
-        access_token = request.COOKIES.get('access_token')
-        refresh_token = request.COOKIES.get('refresh_token')
-        print('refresh_token: ', refresh_token)
-        if refresh_token:
-            try:
-                decoded_token = decode_access_token(access_token)
-                if decoded_token:
-                    return render(request, 'chatbot/chatbot.html')  # 챗봇 페이지 render => redirect로 수정해야할 듯 싶어요
-            except Exception as e:
-                print(e)
-                return render(request, 'account/register.html')
+        auth = get_authorization_header(request).split()
+        if auth and len(auth) == 2:
+            token = auth[1].decode('utf-8')
+            _ = decode_access_token(token)
+            return render(request, 'chatbot/chatbot.html')
         return render(request, 'account/register.html')
 
     def post(self, request):
@@ -54,25 +48,21 @@ class RegisterView(APIView):
 # 로그인
 class LoginView(APIView):
     def get(self, request):
-        access_token = request.COOKIES.get('access_token')
-        refresh_token = request.COOKIES.get('refresh_token')
-        if refresh_token:
-            try:
-                decoded_token = decode_access_token(access_token)
-                if decoded_token:
-                    return render(request, 'chatbot/chatbot.html')  # 챗봇 페이지 render => redirect로 수정해야할 듯 싶어요
-            except Exception as e:
-                print(e)
-            return render(request, 'account/login.html')
+        auth = get_authorization_header(request).split()
+        print('auth: ', auth)
+        if auth and len(auth) == 1:
+            token = auth[1].decode('utf-8')
+            _ = decode_access_token(token)
+            return render(request, 'chatbot/chatbot.html')  # 챗봇 페이지 render => redirect로 수정해야할 듯 싶어요
         return render(request, 'account/login.html')
-  
+
     def post(self, request):
         print('request: ', request.data)
         username = request.data['credential']
         password = request.data['password']
-        try:
-            user = CustomUser.objects.get(username=username)
-        except CustomUser.DoesNotExist:
+
+        user = CustomUser.objects.filter(username=username).first()
+        if user is None:
             raise AuthenticationFailed('존재하지 않는 유저입니다.')
         if not user.check_password(password):
             raise AuthenticationFailed('비밀번호가 틀렸습니다.')
@@ -81,21 +71,17 @@ class LoginView(APIView):
         refresh_token = create_refresh_token(user.id)
 
         response = Response()
-        response.set_cookie(key='access_token', value=access_token, httponly=True)
         response.set_cookie(key='refresh_token', value=refresh_token, httponly=True)
         response.data = {
             'token': access_token
         }
         return response
 
-# 로그아웃
 class LogoutView(APIView):
-    def post(self, request):
+    def post(self, _):
         response = Response()
-        response.set_cookie(key='access_token', value='', httponly=True)
-        response.set_cookie(key='refresh_token', value='', httponly=True)
+        response.delete_cookie(key='refresh_token')
         response.data = {
             'message': '로그아웃 성공'
         }
         return response
-
