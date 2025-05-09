@@ -7,7 +7,6 @@ from .views import (
     get_messages_by_session,
     delete_session,
     add_philosophy_data,
-    get_llm_response,
     chatbot_page,
     chat_api,
 )
@@ -22,5 +21,4 @@ urlpatterns = [
     path('sessions/<int:session_id>/delete/', delete_session),  # DELETE
 
     path('add_philosophy_data/', add_philosophy_data, name='chatbot-add_philosophy_data'),  # POST
-    path('get_llm_response/', get_llm_response, name='chatbot-get_llm_response'),  # GET
 ]
