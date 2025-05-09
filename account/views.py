@@ -48,6 +48,8 @@ class RegisterView(APIView):
 # 로그인
 class LoginView(APIView):
     def get(self, request):
+        # print('request get: ', request.META)
+        print('request get: ', request.META)
         auth = get_authorization_header(request).split()
         print('auth: ', auth)
         if auth and len(auth) == 1:
@@ -57,7 +59,7 @@ class LoginView(APIView):
         return render(request, 'account/login.html')
 
     def post(self, request):
-        print('request: ', request.data)
+        print('request post: ', request.data)
         username = request.data['credential']
         password = request.data['password']
 
@@ -72,6 +74,7 @@ class LoginView(APIView):
 
         response = Response()
         response.set_cookie(key='refresh_token', value=refresh_token, httponly=True)
+        response.set_cookie(key='access_token', value=access_token, httponly=True)
         response.data = {
             'token': access_token
         }
@@ -81,6 +84,7 @@ class LogoutView(APIView):
     def post(self, _):
         response = Response()
         response.delete_cookie(key='refresh_token')
+        response.delete_cookie(key='access_token')
         response.data = {
             'message': '로그아웃 성공'
         }

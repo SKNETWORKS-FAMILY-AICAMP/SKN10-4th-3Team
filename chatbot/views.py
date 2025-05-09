@@ -60,3 +60,4 @@ def delete_session(request, session_id):
         return Response({'success': True})
     except Session.DoesNotExist:
         return Response({'error': 'Session not found'}, status=404)
+
