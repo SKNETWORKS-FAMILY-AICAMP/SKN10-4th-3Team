@@ -17,7 +17,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from django.http import HttpResponse
 from rest_framework import status
-from rest_framework.exceptions import AuthenticationFailed , APIException
+from rest_framework.exceptions import AuthenticationFailed, APIException
 from django.shortcuts import render, redirect
 from django.utils.decorators import method_decorator
 
@@ -32,7 +32,7 @@ class RegisterView(APIView):
         if auth:
             token = request.COOKIES.get('access_token')
             _ = decode_access_token(token)
-            return render(request, 'chatbot/chatbot2.html')     # 챗봇 페이지 render => redirect로 수정해야할 거 같아요 LoginView도 동일하게
+            return redirect('chatbot')         # 챗봇 페이지로 redirect 되게 chatbot/urls를 수정해야할거같습니다.
         return render(request, 'account/register.html')
 
     def post(self, request):
@@ -52,30 +52,29 @@ class LoginView(APIView):
         if auth:
             token = request.COOKIES.get('access_token')
             _ = decode_access_token(token)
-            return render(request, 'chatbot/chatbot2.html')     # 챗봇 페이지 render => redirect로 수정해야할 거 같아요
+            return redirect('chatbot')     
         return render(request, 'account/login.html')
 
     def post(self, request):
-        print('request post: ', request.data)
         username = request.data['credential']
         password = request.data['password']
 
         user = CustomUser.objects.filter(username=username).first()
         if user is None:
             raise AuthenticationFailed('존재하지 않는 유저입니다.')
-        if not user.check_password(password):
+        elif not user.check_password(password):
             raise AuthenticationFailed('비밀번호가 틀렸습니다.')
-    
-        access_token = create_access_token(user.id)
-        refresh_token = create_refresh_token(user.id)
+        else:
+            access_token = create_access_token(user.id)
+            refresh_token = create_refresh_token(user.id)
 
-        response = Response()
-        response.set_cookie(key='refresh_token', value=refresh_token, httponly=True)
-        response.set_cookie(key='access_token', value=access_token, httponly=True)
-        response.data = {
-            'token': access_token
-        }
-        return response
+            response = Response()
+            response.set_cookie(key='refresh_token', value=refresh_token, httponly=True)
+            response.set_cookie(key='access_token', value=access_token, httponly=True)
+            response.data = {
+                'token': access_token
+            }
+            return response
 
 class LogoutView(APIView):
     def post(self, _):
