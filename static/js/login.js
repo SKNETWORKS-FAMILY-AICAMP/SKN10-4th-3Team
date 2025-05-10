@@ -65,12 +65,24 @@ function validateForm(formId, validationRules) {
     return isValid;
 }
 
-// Initialize form validation
+function handleLoginResponse(response) {
+    if (response.status === 200) {
+        window.location.href = '../../chatbot/';
+    } else {
+        alert('로그인 실패');
+    }
+}
+
 document.addEventListener('DOMContentLoaded', () => {
-    // Setup password toggle
+    // ✅ 로그인 상태이면 로그인 페이지 접근 차단
+    if (isLoggedIn()) {
+        window.location.href = '../../chatbot/';
+        return;  // 리디렉션 후 실행 중단
+    }
+
+    // 나머지 초기화 (토글, 검증 등)
     setupPasswordToggle('loginPasswordToggle', 'loginPassword');
 
-    // Setup form validation
     const loginForm = document.getElementById('loginForm');
     if (loginForm) {
         loginForm.addEventListener('submit', (e) => {
@@ -89,9 +101,12 @@ document.addEventListener('DOMContentLoaded', () => {
             });
 
             if (isValid) {
-                // Submit form
                 loginForm.submit();
             }
         });
     }
-}); 
+});
+
+function isLoggedIn() {
+    return document.cookie.split('; ').some(row => row.startsWith('access_token='));
+}

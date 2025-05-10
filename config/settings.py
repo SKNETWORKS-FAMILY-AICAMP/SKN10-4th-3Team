@@ -57,6 +57,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'account.middleware.TokenValidationMiddleware',
 ]
 
 ROOT_URLCONF = 'config.urls'
@@ -128,18 +129,22 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
-STATIC_PATH = os.path.join(BASE_DIR,'static')
+STATIC_PATH = os.path.join(BASE_DIR, 'static')
 STATICFILES_DIRS = (STATIC_PATH,)
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+AUTH_USER_MODEL = 'account.CustomUser'
 
 REST_FRAMEWORK = {
     'DEFAULT_RENDERER_CLASSES': [
         'rest_framework.renderers.JSONRenderer',
         'rest_framework.renderers.BrowsableAPIRenderer',
-    ]
+    ],
+    'EXCEPTION_HANDLER': 'account.exceptions.status_code_handler'
 }
+CORS_ALLOW_CREDENTIALS = True
+CORS_ALLOW_HEADERS = ['*']  # 또는 'authorization' 명시

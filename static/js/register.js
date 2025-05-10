@@ -164,6 +164,15 @@ function validateForm(formId, validationRules) {
     return isValid;
 }
 
+function handleRegisterResponse(response) {
+    if (response.status === 201) {
+      window.location.href = '../../login/'; // 회원가입 성공 시 로그인 페이지로 이동
+    } else {
+        let errorMessage = response.data.detail;
+        alert(errorMessage);
+    }
+}
+
 // Initialize form validation
 document.addEventListener('DOMContentLoaded', () => {
     // Setup password toggles
@@ -222,3 +231,37 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 }); 
+
+document.addEventListener('DOMContentLoaded', function() {
+    const form = document.querySelector('form');
+    const submitButton = form.querySelector('button[type="submit"]');
+
+    form.addEventListener('submit', function(event) {
+        event.preventDefault(); // 폼의 기본 제출 동작을 막습니다.
+
+        // 폼 데이터를 가져옵니다.
+        const formData = new FormData(form);
+
+        // 버튼을 비활성화하여 중복 제출을 방지합니다.
+        submitButton.disabled = true;
+        submitButton.textContent = 'Creating Account...';
+
+        // 서버로 폼 데이터를 전송합니다.
+        fetch(form.action, {
+            method: 'POST',
+            body: formData,
+        })
+        .then(response => {
+            handleRegisterResponse(response);
+            // 서버 응답에 따라 버튼을 다시 활성화합니다.
+            submitButton.disabled = false;
+            submitButton.textContent = 'Create Account';
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            // 에러 발생 시 버튼을 다시 활성화합니다.
+            submitButton.disabled = false;
+            submitButton.textContent = 'Create Account';
+        });
+    });
+});
