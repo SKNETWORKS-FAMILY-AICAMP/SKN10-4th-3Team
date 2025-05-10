@@ -2,11 +2,11 @@ from rest_framework.response import Response
 from .token import decode_access_token, decode_refresh_token, create_access_token, create_refresh_token
 
 def validate_access_token(request):
-    if request.COOKIES.get('access_token'):
-      access_token = request.COOKIES.get('access_token')
-      if not access_token:
-          return False
     try:
+        access_token = request.COOKIES.get('access_token')
+        if not access_token:
+            return False
+            
         payload = decode_access_token(access_token)
         return True
     except:
