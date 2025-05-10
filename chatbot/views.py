@@ -86,8 +86,6 @@ def delete_session(request, session_id):
     except Session.DoesNotExist:
         return Response({'error': 'Session not found'}, status=404)
 
-<<<<<<< HEAD
-=======
 
 @api_view(['POST'])
 def add_philosophy_data(request):
@@ -104,4 +102,3 @@ def add_philosophy_data(request):
         keywords_emb=keywords_emb,
     )
     return Response({'success': True, 'quote': new_data.quote})
->>>>>>> origin/develop
