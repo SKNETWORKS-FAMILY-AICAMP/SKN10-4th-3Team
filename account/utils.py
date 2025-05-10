@@ -1,6 +1,16 @@
 from rest_framework.response import Response
 from .token import decode_access_token, decode_refresh_token, create_access_token, create_refresh_token
 
+def validate_access_token(request):
+    access_token = request.COOKIES.get('access_token')
+    if not access_token:
+        return False
+    try:
+        payload = decode_access_token(access_token)
+        return True
+    except:
+        return False
+
 # access token 만료 시
 def expired_token(request):
   # access token 만료 확인

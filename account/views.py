@@ -28,11 +28,11 @@ from .models import CustomUser
 # 회원가입
 class RegisterView(APIView):
     def get(self, request):
-        auth = get_authorization_header(request).split()
-        if auth and len(auth) == 2:
-            token = auth[1].decode('utf-8')
+        auth = True if request.COOKIES.get('access_token') else False
+        if auth:
+            token = request.COOKIES.get('access_token')
             _ = decode_access_token(token)
-            return render(request, 'chatbot/chatbot.html')
+            return render(request, 'chatbot/chatbot2.html')     # 챗봇 페이지 render => redirect로 수정해야할 거 같아요 LoginView도 동일하게
         return render(request, 'account/register.html')
 
     def post(self, request):
@@ -48,14 +48,11 @@ class RegisterView(APIView):
 # 로그인
 class LoginView(APIView):
     def get(self, request):
-        # print('request get: ', request.META)
-        print('request get: ', request.META)
-        auth = get_authorization_header(request).split()
-        print('auth: ', auth)
-        if auth and len(auth) == 1:
-            token = auth[1].decode('utf-8')
+        auth = True if request.COOKIES.get('access_token') else False
+        if auth:
+            token = request.COOKIES.get('access_token')
             _ = decode_access_token(token)
-            return render(request, 'chatbot/chatbot.html')  # 챗봇 페이지 render => redirect로 수정해야할 듯 싶어요
+            return render(request, 'chatbot/chatbot2.html')     # 챗봇 페이지 render => redirect로 수정해야할 거 같아요
         return render(request, 'account/login.html')
 
     def post(self, request):
