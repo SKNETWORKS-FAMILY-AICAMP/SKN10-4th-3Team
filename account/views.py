@@ -68,7 +68,7 @@ class LoginView(APIView):
             access_token = create_access_token(user.id)
             refresh_token = create_refresh_token(user.id)
 
-            response = Response()
+            response = redirect('chatbot')
             response.set_cookie(key='refresh_token', value=refresh_token, httponly=True)
             response.set_cookie(key='access_token', value=access_token, httponly=True)
             response.data = {
@@ -78,7 +78,7 @@ class LoginView(APIView):
 
 class LogoutView(APIView):
     def post(self, _):
-        response = Response()
+        response = redirect('chatbot')
         response.delete_cookie(key='refresh_token')
         response.delete_cookie(key='access_token')
         response.data = {

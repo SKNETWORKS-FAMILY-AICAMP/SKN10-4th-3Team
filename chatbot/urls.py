@@ -13,7 +13,7 @@ from .views import (
 
 urlpatterns = [
     # path('show_all_messages/', show_all_messages, name='chatbot-show_all_messages'),
-    path('',chatbot_page),
+    path('',chatbot_page,name='chatbot'),
     path('chat/',chat_api),
     path('sessions/', list_sessions),  # GET
     path('sessions/create/', create_session),  # POST

@@ -10,7 +10,7 @@ const toggleSidebarBtn = document.getElementById('toggleSidebarBtn');
 const sidebarToggleIcon = document.getElementById('sidebarToggleIcon');
 const mobileMenuBtn = document.getElementById('mobileMenuBtn');
 const chatHistoryContainer = document.getElementById('chatHistoryContainer');
-const isUserLoggedIn = true;//window.isUserLoggedIn === true;
+const isUserLoggedIn = window.isUserLoggedIn === "true";
 let isSidebarCollapsed = false;
 let currentChatHistory = []; // To store messages of current session
 
@@ -76,6 +76,7 @@ async function deleteSession(sessionId) {
     if (activeSessionId === sessionId) {
         location.reload();
     }
+
 }
 
 async function loadSessionMessages(sessionId) {
@@ -304,7 +305,7 @@ function startNewChat() {
             contentSpan.style.justifyContent = 'center';
     }
     chatInput.focus();
-renderSidebarSessions();
+    renderSidebarSessions();
 }
 
 // This function is no longer directly used as suggestion cards are removed,
@@ -374,21 +375,6 @@ newChatBtn.addEventListener('click', async () => {
 
 toggleSidebarBtn.addEventListener('click', toggleSidebar);
 
-mobileMenuBtn.addEventListener('click', () => {
-    const isCurrentlyHidden = sidebar.classList.contains('hidden');
-    sidebar.classList.toggle('hidden'); // Toggle visibility for mobile
-
-    // If sidebar was collapsed and is now being shown on mobile, expand it
-    if (!isCurrentlyHidden && isSidebarCollapsed) { // This condition is tricky: if it *becomes* visible and *was* collapsed
-        // Let's rephrase: if it's now shown, and it was previously collapsed, we might want to un-collapse it.
-        // However, the user might prefer it stays collapsed.
-        // For now, we don't force un-collapse here, user can use the toggle button.
-    } else if (isCurrentlyHidden && window.innerWidth < 768 && isSidebarCollapsed) {
-        // If opening on mobile AND it was collapsed, ensure it un-collapses for better mobile UX initially.
-        // toggleSidebar(); // This would un-collapse it. Decide on desired behavior.
-    }
-});
-
 // --- INITIALIZATION ---
 autoResizeTextarea(); // Initialize textarea height and button state
 if (window.innerWidth < 768) { // Initially hide sidebar on small screens
@@ -401,4 +387,9 @@ renderSidebarSessions();
 // Add delete functionality to statically loaded chat history items
 document.querySelectorAll('#chatHistoryContainer .chat-history-item').forEach(item => {
     addDeleteFunctionality(item);
+});
+document.addEventListener("DOMContentLoaded", async () => {
+    await renderSidebarSessions();  // ✅ 사이드바 세션 초기 렌더링
+    autoResizeTextarea();           // ✅ textarea 상태 초기화
+    chatInput?.focus();             // ✅ 포커스 이동
 });
