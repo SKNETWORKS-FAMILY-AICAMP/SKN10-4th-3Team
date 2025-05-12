@@ -24,7 +24,7 @@ class RegisterView(APIView):
     def post(self, request):
         username = request.data['username']
         if CustomUser.objects.filter(username=username).exists():
-            return Response({'detail': '이미 존재하는 유저입니다11.'}, status=400)
+            return Response({'detail': '이미 존재하는 유저입니다.'}, status=400)
         serializer = UserSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         serializer.save()

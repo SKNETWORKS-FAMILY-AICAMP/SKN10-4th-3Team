@@ -52,9 +52,8 @@ document.addEventListener('DOMContentLoaded', function() {
                   alert('회원가입이 완료되었습니다. 로그인 해주세요.');
                   window.location.href = '/account/login/';
               } else {
-                console.log('asdf')
                   alert(data.detail || '회원가입에 실패했습니다.');
-                  window.location.href = '/account/register/';
+                  // window.location.href = '/account/register/';
               }
           } catch (error) {
               console.error('Error:', error);
