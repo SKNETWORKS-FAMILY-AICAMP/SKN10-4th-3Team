@@ -229,35 +229,6 @@
 
  0001_initial.py파일이 이미 커밋 돼서 깃이 추적 중이기 때문에 무시되지 않는 것이었습니다. 따라서 Git에게 해당 폴더 추적 중단 요청을 하고 다시 진행을 하니 잘 적용이 되는 걸 볼 수 있었습니다.
 <br/>
-### 1. migrations폴더 안에 있는 0001_initial.py가 gitignore에 적용되지 않는 문제 해결
-<br/>
-
-**문제**
-<br/>
-
-.gitignore에 migrations/를 넣었는데 migrations폴더 안에 있는 0001_initial.py가 gitignore에 적용되지 않았습니다. 
-<br/>
-
-**해결**
-<br/>
-
- 0001_initial.py파일이 이미 커밋 돼서 깃이 추적 중이기 때문에 무시되지 않는 것이었습니다. 따라서 Git에게 해당 폴더 추적 중단 요청을 하고 다시 진행을 하니 잘 적용이 되는 걸 볼 수 있었습니다.
-<br/>
-
-### 1. migrations폴더 안에 있는 0001_initial.py가 gitignore에 적용되지 않는 문제 해결
-<br/>
-
-**문제**
-<br/>
-
-.gitignore에 migrations/를 넣었는데 migrations폴더 안에 있는 0001_initial.py가 gitignore에 적용되지 않았습니다. 
-<br/>
-
-**해결**
-<br/>
-
- 0001_initial.py파일이 이미 커밋 돼서 깃이 추적 중이기 때문에 무시되지 않는 것이었습니다. 따라서 Git에게 해당 폴더 추적 중단 요청을 하고 다시 진행을 하니 잘 적용이 되는 걸 볼 수 있었습니다.
-<br/>
 
 ### 2. chatbot 페이지에서의 유저 인증 문제
 <br/>
