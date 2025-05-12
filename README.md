@@ -1,7 +1,7 @@
 # SKN10-4th-3Team
 
 # 0. 팀 소개
-  ### 팀명: 2팀
+  ### 팀명: 3팀
 <br>
 
 ### 팀원 소개
@@ -46,9 +46,68 @@
  </t>
 <br>
 
- # 2. 기술 스택 
+ # 2. 기술 스택
+<br/>
+
+| **Frontend** | **Backend** | **Embedding model** | **LLM Model** | **Vector DB** | **Deployment** | **Collaboration Tool** |
+|--------------|-------------|-------------------|----------------|----------------|----------------|----------------------|
+| ![HTML](https://img.shields.io/badge/-HTML5-E34F26?logo=html5&logoColor=white)<br>![CSS](https://img.shields.io/badge/-CSS3-1572B6?logo=css3&logoColor=white)<br>![JavaScript](https://img.shields.io/badge/-JavaScript-F7DF1E?logo=javascript&logoColor=black) | ![Django](https://img.shields.io/badge/-Django-092E20?logo=django&logoColor=white)<br>|![googlegemini](https://img.shields.io/badge/-googlegemini-8E75B2?logo=googlegemini&logoColor=white) |![openai](https://img.shields.io/badge/-openai-412991?logo=openai&logoColor=white)<br> | ![postgresql](https://img.shields.io/badge/-postgresql-4169E1?logo=postgresql&logoColor=white) | ![Docker](https://img.shields.io/badge/-Docker-2496ED?logo=docker&logoColor=white)<br>![AWS EC2](https://img.shields.io/badge/-AWS%20EC2-FF9900?logo=amazonaws&logoColor=white) | ![Git](https://img.shields.io/badge/-Git-F05032?logo=git&logoColor=white)<br>![GitHub](https://img.shields.io/badge/-GitHub-181717?logo=github&logoColor=white)<br>![Discord](https://img.shields.io/badge/-Discord-5865F2?logo=discord&logoColor=white) |
+
  # 3. 시스템 아키텍처
+ ![Image](https://github.com/user-attachments/assets/1effbd2d-d64c-48e3-8238-a9f305d825d1)
+ <br>
+ ![Image](https://github.com/user-attachments/assets/196494b9-40b1-44ad-bbc3-f64670bf080a)
+<br>
+
  # 4. 프로젝트 진행 과정
+
  # 5. 시연
- # 6. 한 줄 회고
+
+# 6. 이슈 및 해결방법
+### 1. 데이터 분할 후 Oversampling을 통한 Overfitting 문제 해결
+<br/>
+
+**문제**
+<br/>
+
+문제입력
+<br/>
+
+**해결**
+<br/>
+
+해결입력
+<br/>
+
+
+ # 7. 한 줄 회고
+**원유형**
+<br/>
+
+회고
+<br/>
+
+**김현수**
+<br/>
+
+회고
+<br/>
+
+**이서영**
+<br/>
+
+장고 프레임워크를 전반적으로 사용해볼 수 있는 좋은 시간이었습니다. 팀원분들 덕분에 무사히 프로젝트를 마칠 수 있었습니다. 다시한번 감사드립니다.
+<br/>
+
+**정소열**
+<br/>
+
+프로젝트를 통해서 배운 걸 적용하고 복기하는 경험이 되었습니다. 친절하게 도와주신 팀원분들 팀장님 감사합니다.
+<br/>
+
+**최수헌**
+<br/>
+
+회고
+<br/>
 
