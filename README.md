@@ -76,7 +76,7 @@
  <br>
 
  ## Chatbot
-  ![Image]https://github.com/user-attachments/assets/16069f28-5804-4b58-bfc2-990d34bc2ed5
+  ![Image](https://github.com/user-attachments/assets/16069f28-5804-4b58-bfc2-990d34bc2ed5)
  <br>
 
  ## AWS
