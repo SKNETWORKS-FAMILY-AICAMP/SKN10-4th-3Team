@@ -57,19 +57,33 @@
 
 | **Frontend** | **Backend** | **Embedding model** | **LLM Model** | **Vector DB** | **Deployment** | **Collaboration Tool** |
 |--------------|-------------|-------------------|----------------|----------------|----------------|----------------------|
-| ![HTML](https://img.shields.io/badge/-HTML5-E34F26?logo=html5&logoColor=white)<br>![CSS](https://img.shields.io/badge/-CSS3-1572B6?logo=css3&logoColor=white)<br>![JavaScript](https://img.shields.io/badge/-JavaScript-F7DF1E?logo=javascript&logoColor=black) | ![Django](https://img.shields.io/badge/-Django-092E20?logo=django&logoColor=white)<br>|![googlegemini](https://img.shields.io/badge/-googlegemini-8E75B2?logo=googlegemini&logoColor=white) |![openai](https://img.shields.io/badge/-openai-412991?logo=openai&logoColor=white)<br> | ![postgresql](https://img.shields.io/badge/-postgresql-4169E1?logo=postgresql&logoColor=white) | ![Docker](https://img.shields.io/badge/-Docker-2496ED?logo=docker&logoColor=white)<br>![AWS EC2](https://img.shields.io/badge/-AWS%20EC2-FF9900?logo=amazonaws&logoColor=white) | ![Git](https://img.shields.io/badge/-Git-F05032?logo=git&logoColor=white)<br>![GitHub](https://img.shields.io/badge/-GitHub-181717?logo=github&logoColor=white)<br>![Discord](https://img.shields.io/badge/-Discord-5865F2?logo=discord&logoColor=white) |
+| ![HTML](https://img.shields.io/badge/-HTML5-E34F26?logo=html5&logoColor=white)<br>![CSS](https://img.shields.io/badge/-CSS3-1572B6?logo=css3&logoColor=white)<br>![JavaScript](https://img.shields.io/badge/-JavaScript-F7DF1E?logo=javascript&logoColor=black) | ![Django](https://img.shields.io/badge/-Django-092E20?logo=django&logoColor=white)<br>|![openai](https://img.shields.io/badge/-openai-412991?logo=openai&logoColor=white) |![googlegemini](https://img.shields.io/badge/-googlegemini-8E75B2?logo=googlegemini&logoColor=white)<br> | ![postgresql](https://img.shields.io/badge/-postgresql-4169E1?logo=postgresql&logoColor=white) | ![Docker](https://img.shields.io/badge/-Docker-2496ED?logo=docker&logoColor=white)<br>![AWS EC2](https://img.shields.io/badge/-AWS%20EC2-FF9900?logo=amazonaws&logoColor=white) | ![Git](https://img.shields.io/badge/-Git-F05032?logo=git&logoColor=white)<br>![GitHub](https://img.shields.io/badge/-GitHub-181717?logo=github&logoColor=white)<br>![Discord](https://img.shields.io/badge/-Discord-5865F2?logo=discord&logoColor=white) |
 
 <br>
 
  # 3. 시스템 아키텍처
 
- ## account
+## Web
+ ![Image](https://github.com/user-attachments/assets/1effbd2d-d64c-48e3-8238-a9f305d825d1)
+ <br>
+ 
+## ERD
+ ![Image](https://github.com/user-attachments/assets/99c147be-ce3e-4025-9713-9f72d3fa8240)
+<br>
+
+ ## Account
  ![Image](https://github.com/user-attachments/assets/b7243fae-911a-4dbb-b60a-30aff45cee43)
+ <br>
+
+ ## Chatbot
+ https://github.com/user-attachments/assets/16069f28-5804-4b58-bfc2-990d34bc2ed5
+ <br>
 
  ## AWS
- ![Image](https://github.com/user-attachments/assets/1effbd2d-d64c-48e3-8238-a9f305d825d1)
- <br><br>
- ![Image](https://github.com/user-attachments/assets/196494b9-40b1-44ad-bbc3-f64670bf080a)
+![Image](https://github.com/user-attachments/assets/d74224dc-b21d-4e02-a69a-7184f48b5574)
+
+
+
 
 <br>
 
