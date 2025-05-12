@@ -66,7 +66,7 @@
 ## Web
  ![Image](https://github.com/user-attachments/assets/1effbd2d-d64c-48e3-8238-a9f305d825d1)
  <br>
- 
+
 ## ERD
  ![Image](https://github.com/user-attachments/assets/99c147be-ce3e-4025-9713-9f72d3fa8240)
 <br>
@@ -76,7 +76,7 @@
  <br>
 
  ## Chatbot
- https://github.com/user-attachments/assets/16069f28-5804-4b58-bfc2-990d34bc2ed5
+  ![Image]https://github.com/user-attachments/assets/16069f28-5804-4b58-bfc2-990d34bc2ed5
  <br>
 
  ## AWS
