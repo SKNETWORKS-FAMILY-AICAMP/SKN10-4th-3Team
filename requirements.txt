@@ -1,9 +1,13 @@
 django
-PyJWT
 djangorestframework
-groq
+# WSGI server for production
+gunicorn
+PyJWT
 psycopg2-binary
 pgvector
 google-generativeai
 openai
 django-environ
+psycopg2-binary
+sshtunnel
+paramiko
