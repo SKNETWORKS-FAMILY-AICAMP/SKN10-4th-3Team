@@ -19,11 +19,11 @@
     <td align="center">최수헌</td>
   </tr>
   <tr>
-    <td align="center"><img src="image/니체.png" width="175" height="150"></td>
-    <td align="center"><img src="image/데카르트.png" width="175" height="150"></td>
-    <td align="center"><img src="image/플라톤.png" width="175" height="150"></td>
-    <td align="center"><img src="image/아리스토텔레스.png" width="175" height="150"></td>
-    <td align="center"><img src="image/프로이트.png" width="175" height="150"></td>
+    <td align="center"><img src="https://github.com/user-attachments/assets/b9c193d8-9fe5-442f-97db-617f53188438" width="175px" height="150px"/></td>
+    <td align="center"><img src="https://github.com/user-attachments/assets/ab8e5995-0f51-4039-a019-f2fab629aa57" width="175" height="150"></td>
+    <td align="center"><img src="https://github.com/user-attachments/assets/2f93fe6e-07cd-43da-b3c9-203ddb91f4bd" width="175" height="150"></td>
+    <td align="center"><img src="https://github.com/user-attachments/assets/a3ee8f49-fe94-477d-920a-ec193ee999c8" width="175" height="150"></td>
+    <td align="center"><img src="https://github.com/user-attachments/assets/e93dfa9a-55fa-4495-a2d6-ffc98dc2cc09" width="175" height="150"></td>
   </tr>
   <tr>
     <td align="center"><a href="https://github.com/user-attachments/assets/87d06e7e-3850-4082-b29e-557128509e38"><b>@원유형</b></a></td>
@@ -62,6 +62,11 @@
 <br>
 
  # 3. 시스템 아키텍처
+
+ ## account
+ ![Image](https://github.com/user-attachments/assets/b7243fae-911a-4dbb-b60a-30aff45cee43)
+
+ ## AWS
  ![Image](https://github.com/user-attachments/assets/1effbd2d-d64c-48e3-8238-a9f305d825d1)
  <br><br>
  ![Image](https://github.com/user-attachments/assets/196494b9-40b1-44ad-bbc3-f64670bf080a)
